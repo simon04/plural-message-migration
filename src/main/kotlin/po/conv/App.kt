@@ -19,7 +19,7 @@ private fun convertBE() {
     val catalog = PoParser().parseCatalog(file)
     val header = catalog.locateHeader()
     header.msgstr = header.msgstr.replace(
-            "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && \"\n\"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);",
+            "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);",
             "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
     )
     catalog.filter { it.isPlural && it.msgstrPlural.size == 3 }.forEach {
@@ -47,7 +47,7 @@ private fun convertLT() {
     val catalog = PoParser().parseCatalog(file)
     val header = catalog.locateHeader()
     header.msgstr = header.msgstr.replace(
-            "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && \"\n\"(n%100<10 || n%100>=20) ? 1 : 2;",
+            "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2;",
             "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);"
     )
     catalog.filter { it.isPlural && it.msgstrPlural.size == 3 }.forEach {
@@ -80,7 +80,7 @@ private fun convertPL() {
     val catalog = PoParser().parseCatalog(file)
     val header = catalog.locateHeader()
     header.msgstr = header.msgstr.replace(
-            "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 \"\n\"|| n%100>=20) ? 1 : 2;",
+            "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;",
             "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);"
     )
     catalog.filter { it.isPlural && it.msgstrPlural.size == 3 }.forEach {
@@ -94,7 +94,7 @@ private fun convertRU() {
     val catalog = PoParser().parseCatalog(file)
     val header = catalog.locateHeader()
     header.msgstr = header.msgstr.replace(
-            "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && \"\n\"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;",
+            "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;",
             "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
     )
     catalog.filter { it.isPlural && it.msgstrPlural.size == 3 }.forEach {
@@ -108,7 +108,7 @@ private fun convertUK() {
     val catalog = PoParser().parseCatalog(file)
     val header = catalog.locateHeader()
     header.msgstr = header.msgstr.replace(
-            "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && \"\n\"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;",
+            "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;",
             "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"
     )
     catalog.filter { it.isPlural && it.msgstrPlural.size == 3 }.forEach {
