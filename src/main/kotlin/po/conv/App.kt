@@ -1,6 +1,5 @@
 package po.conv
 
-import org.fedorahosted.tennera.jgettext.Message
 import org.fedorahosted.tennera.jgettext.PoParser
 import org.fedorahosted.tennera.jgettext.PoWriter
 import java.io.File
@@ -11,7 +10,7 @@ fun main(args: Array<String>) {
 }
 
 private fun convertCS() {
-    val file = File("../po/cs.po")
+    val file = File("po/cs.po")
     val catalog = PoParser().parseCatalog(file)
     val header = catalog.locateHeader()
     header.msgstr = header.msgstr.replace(
@@ -19,13 +18,13 @@ private fun convertCS() {
             "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
     )
     catalog.filter { it.isPlural && it.msgstrPlural.size == 3 }.forEach {
-        it.addMsgstrPlural(it.msgstrPlural[2], 3)
+        it.msgstrPlural.add(it.msgstrPlural[2])
     }
     PoWriter().write(catalog, file)
 }
 
 private fun convertSK() {
-    val file = File("../po/sk.po")
+    val file = File("po/sk.po")
     val catalog = PoParser().parseCatalog(file)
     val header = catalog.locateHeader()
     header.msgstr = header.msgstr.replace(
@@ -34,18 +33,11 @@ private fun convertSK() {
     )
     catalog.filter { it.isPlural && it.msgstrPlural.size == 3 }.forEach {
         val (p0, p1, p2) = it.msgstrPlural
-        clearPlurals(it)
         // https://josm.openstreetmap.de/ticket/8645#comment:129
-        it.addMsgstrPlural(p1, 0)
-        it.addMsgstrPlural(p2, 1)
-        it.addMsgstrPlural(p0, 2)
-        it.addMsgstrPlural(p0, 3)
+        it.msgstrPlural[0] = p1
+        it.msgstrPlural[1] = p2
+        it.msgstrPlural[2] = p0
+        it.msgstrPlural.add(p0)
     }
     PoWriter().write(catalog, file)
-}
-
-private fun clearPlurals(msg: Message) {
-    val clearPlurals = Message::class.java.declaredMethods.filter { it.name.equals("clearPlurals") }[0]
-    clearPlurals.isAccessible = true
-    clearPlurals.invoke(msg)
 }
