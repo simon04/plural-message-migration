@@ -7,6 +7,7 @@ import java.io.File
 fun main(args: Array<String>) {
     convertBE()
     convertCS()
+    convertLT()
     convertSK()
     convertUK()
 }
@@ -35,6 +36,20 @@ private fun convertCS() {
     )
     catalog.filter { it.isPlural && it.msgstrPlural.size == 3 }.forEach {
         it.msgstrPlural.add(it.msgstrPlural[2])
+    }
+    PoWriter().write(catalog, file)
+}
+
+private fun convertLT() {
+    val file = File("po/lt.po")
+    val catalog = PoParser().parseCatalog(file)
+    val header = catalog.locateHeader()
+    header.msgstr = header.msgstr.replace(
+            "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && \"\n\"(n%100<10 || n%100>=20) ? 1 : 2;",
+            "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);"
+    )
+    catalog.filter { it.isPlural && it.msgstrPlural.size == 3 }.forEach {
+        it.msgstrPlural.add(2, it.msgstrPlural[2])
     }
     PoWriter().write(catalog, file)
 }
